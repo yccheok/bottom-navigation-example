@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <fragment
+        android:layout_marginBottom="0dp"
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         app:navGraph="@navigation/mobile_navigation" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_marginBottom="0dp"
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,6 +27,8 @@
         most.
         -->
         <com.google.android.material.bottomappbar.BottomAppBar
+            app:fabCradleRoundedCornerRadius="0dp"
+
             android:layout_gravity="bottom"
 
             android:id="@+id/bottom_app_bar"
