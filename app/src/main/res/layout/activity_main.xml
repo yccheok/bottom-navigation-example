@@ -1,22 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/container"
+    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <fragment
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
         android:layout_marginBottom="-16dp"
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/mobile_navigation" />
 
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background2"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--
+            TODO: We should compute status bar height using the following guideline.
+            https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
+            -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_marginTop="20dp"
+                app:elevation="0dp"
+                android:background="@android:color/transparent"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:background="@android:color/transparent"
+
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <fragment
+
+                android:id="@+id/nav_host_fragment_activity_main"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/mobile_navigation" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!--
+    TODO: We should compute navigation bar height using the following guideline.
+
+    Resources resources = this.getResources();
+    int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+    if (resourceId > 0) {
+        int navigationBarHeight = resources.getDimensionPixelSize(resourceId);
+    }
+    -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:paddingBottom="72px"
+
         android:layout_marginBottom="-16dp"
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
@@ -63,5 +118,4 @@
             android:contentDescription="@string/app_name"
             app:layout_anchor="@id/bottom_app_bar" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    
 </LinearLayout>
