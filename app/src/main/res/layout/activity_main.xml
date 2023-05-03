@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <FrameLayout
-        android:layout_marginBottom="-16dp"
+    android:layout_height="match_parent">
 
-        android:id="@+id/frame_layout"
+    <FrameLayout
+        android:id="@+id/toolbar_content_and_background_image_frame_layout"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/image_view"
+            android:id="@+id/background_image_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/background2"
             android:scaleType="centerCrop" />
 
         <LinearLayout
-            android:id="@+id/container"
+            android:id="@+id/toolbar_content_linear_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -31,7 +28,6 @@
             https://stackoverflow.com/questions/3407256/height-of-status-bar-in-android
             -->
             <com.google.android.material.appbar.AppBarLayout
-                android:layout_marginTop="20dp"
                 app:elevation="0dp"
                 android:background="@android:color/transparent"
 
@@ -60,65 +56,36 @@
         </LinearLayout>
     </FrameLayout>
 
-    <!--
-    TODO: We should compute navigation bar height using the following guideline.
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:backgroundTint="#ff0000"
+        app:fabCradleRoundedCornerRadius="0dp"
 
-    Resources resources = this.getResources();
-    int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-    if (resourceId > 0) {
-        int navigationBarHeight = resources.getDimensionPixelSize(resourceId);
-    }
-    -->
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:paddingBottom="72px"
+        android:layout_gravity="bottom"
 
-        android:layout_marginBottom="-16dp"
-        android:id="@+id/coordinator_layout"
+        android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--
-        Workaround: android:layout_gravity="bottom" is required so that bottom bar stays at bottom
-        most.
-        -->
-        <com.google.android.material.bottomappbar.BottomAppBar
-            app:fabCradleRoundedCornerRadius="0dp"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_marginEnd="16dp"
+            app:elevation="0dp"
+            app:backgroundTint="@android:color/transparent"
 
-            android:layout_gravity="bottom"
-
-            android:id="@+id/bottom_app_bar"
+            android:id="@+id/nav_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!--
-            Workaround: android:layout_marginEnd="16dp" is required to balance the mystery
-            marginStart.
-            -->
-            <!--
-            Workaround: app:elevation="0dp" and app:backgroundTint="@android:color/transparent" is
-            used due to the following reason :-
-            https://stackoverflow.com/questions/63518075/android-problem-in-transparent-bottom-navigation-inside-the-bottom-app-bar
-            -->
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:layout_marginEnd="16dp"
-                app:elevation="0dp"
-                app:backgroundTint="@android:color/transparent"
-
-                android:id="@+id/nav_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/windowBackground"
-
-                app:labelVisibilityMode="unlabeled"
-                app:itemBackground="?attr/actionBarItemBackground"
-                app:menu="@menu/bottom_nav_menu" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_android_black_24dp"
-            android:contentDescription="@string/app_name"
-            app:layout_anchor="@id/bottom_app_bar" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</LinearLayout>
+
+            app:labelVisibilityMode="unlabeled"
+            app:itemBackground="?attr/actionBarItemBackground"
+            app:menu="@menu/bottom_nav_menu" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_android_black_24dp"
+        android:contentDescription="@string/app_name"
+        app:layout_anchor="@id/bottom_app_bar" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

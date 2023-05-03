@@ -1,10 +1,11 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,10 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Window w = getWindow();
-        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         super.onCreate(savedInstanceState);
+
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -43,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/76104744/how-to-remove-space-curve-cradle-among-fab-and-bottomappbar
         final BottomAppBar bottomAppBar = binding.bottomAppBar;
         bottomAppBar.setFabCradleMargin(-bottomAppBar.getFabCradleMargin());
+
+        final ViewTreeObserver vto = bottomAppBar.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @Override
+            public void onGlobalLayout() {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    bottomAppBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    bottomAppBar.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams)(binding.toolbarContentAndBackgroundImageFrameLayout.getLayoutParams());
+                marginLayoutParams.bottomMargin = bottomAppBar.getHeight();
+                binding.toolbarContentAndBackgroundImageFrameLayout.setLayoutParams(marginLayoutParams);
+            }
+        });
     }
 
 }
