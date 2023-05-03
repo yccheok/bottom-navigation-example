@@ -107,6 +107,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/windowBackground"
+
+                app:labelVisibilityMode="unlabeled"
+                app:itemBackground="?attr/actionBarItemBackground"
                 app:menu="@menu/bottom_nav_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>
 
