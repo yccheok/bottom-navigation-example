@@ -19,6 +19,9 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/primary_text_light"
         android:text="Passcode" />
 
     <ImageView
@@ -27,5 +30,5 @@
 
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/baseline_arrow_forward_ios_24" />
+        android:src="@drawable/baseline_keyboard_arrow_right_24" />
 </androidx.appcompat.widget.LinearLayoutCompat>
