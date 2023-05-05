@@ -40,7 +40,7 @@ public class SettingsSection extends Section {
 
     @Override
     public int getContentItemsTotal() {
-        return 1;
+        return 10;
     }
 
     @Override
