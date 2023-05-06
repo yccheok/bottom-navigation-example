@@ -1,14 +1,16 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -16,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,6 +87,30 @@ public class MainActivity extends AppCompatActivity {
                 marginLayoutParams.bottomMargin = bottomAppBar.getHeight();
                 binding.toolbarContentAndBackgroundImageFrameLayout.setLayoutParams(marginLayoutParams);
             }
+        });
+
+        // https://stackoverflow.com/questions/76164938/why-the-height-of-bottom-app-bar-grow-significantly-when-displaying-content-edge
+        // https://stackoverflow.com/questions/75076365/bottomappbar-height-gets-bigger-when-using-window-setdecorfitssystemwindowsfals
+        ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (v, insets) -> {
+            Insets statusBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            Insets navigationBarsInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+
+            AppBarLayout appBarLayout = binding.appBarLayout;
+            appBarLayout.setPadding(
+                    appBarLayout.getPaddingLeft(),
+                    statusBarsInsets.top,
+                    appBarLayout.getPaddingRight(),
+                    appBarLayout.getPaddingBottom()
+            );
+
+            bottomAppBar.setPadding(
+                    bottomAppBar.getPaddingLeft(),
+                    bottomAppBar.getPaddingTop(),
+                    bottomAppBar.getPaddingRight(),
+                    navigationBarsInsets.bottom
+            );
+
+            return WindowInsetsCompat.CONSUMED;
         });
     }
 
